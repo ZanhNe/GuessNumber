@@ -15,7 +15,7 @@ const defaultScore = 20;
 const defaultMessage = `Start guessing...`;
 const defaultHidden = `?`;
 const defaultNumber = ``;
-const defaultColor = `black`;
+const defaultColor = `#222`;
 let score = defaultScore; //Set score ngoài global để sau nếu có cần sử dụng bên trong code, chứ không nên dựa vào DOM để get ra
 
 const checkNumber = () => {
