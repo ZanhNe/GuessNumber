@@ -9,14 +9,15 @@ const hiddenTag = $('.number');
 const againButton = $('.again');
 const guessTag = $('.guess');
 const checkButton = $('.check');
+const body = $('body');
 
 const defaultScore = 20;
 const defaultMessage = `Start guessing...`;
 const defaultHidden = `?`;
 const defaultNumber = ``;
-let score = defaultScore;
+const defaultColor = `black`;
+let score = defaultScore; //Set score ngoài global để sau nếu có cần sử dụng bên trong code, chứ không nên dựa vào DOM để get ra
 
-function setScore() {}
 const checkNumber = () => {
   const number = Number(guessTag.value);
   const secretNumber = Number(hiddenTag.value);
@@ -31,6 +32,7 @@ const checkNumber = () => {
       if (score > highscore) {
         highscoreTag.textContent = String(score);
       }
+      body.style.backgroundColor = 'green';
     } else {
       if (score !== 0) {
         if (number > secretNumber) messageTag.textContent = `Too high...👆`;
@@ -50,7 +52,8 @@ const reset = () => {
   scoreTag.textContent = String(defaultScore);
   hiddenTag.textContent = defaultHidden;
   hiddenTag.value = Math.floor(Math.random() * 19 + 1);
-  score = defaultScore;
+  body.style.backgroundColor = defaultColor;
+  score = Number(messageTag.value);
 };
 
 function playAgain() {
