@@ -14,26 +14,32 @@ const defaultScore = 20;
 const defaultMessage = `Start guessing...`;
 const defaultHidden = `?`;
 const defaultNumber = ``;
+let score = defaultScore;
 
+function setScore() {}
 const checkNumber = () => {
   const number = Number(guessTag.value);
   const secretNumber = Number(hiddenTag.value);
   const highscore = Number(highscoreTag.textContent);
-  let currentScore = Number(scoreTag.textContent);
 
   if (number < 1 || number > 20)
     messageTag.textContent = `Wrong number, fill again`;
   else {
     if (number === secretNumber) {
-      messageTag.textContent = `Correct`;
+      messageTag.textContent = `🎉🎉 Correct!!!`;
       hiddenTag.textContent = String(secretNumber);
-      if (currentScore > highscore) {
-        highscoreTag.textContent = String(currentScore);
+      if (score > highscore) {
+        highscoreTag.textContent = String(score);
       }
     } else {
-      if (number > secretNumber) messageTag.textContent = `Too high...`;
-      else messageTag.textContent = `Too low...`;
-      scoreTag.textContent = String(--currentScore);
+      if (score !== 0) {
+        if (number > secretNumber) messageTag.textContent = `Too high...👆`;
+        else messageTag.textContent = `Too low...👇`;
+        scoreTag.textContent = String(--score);
+        if (score === 0) messageTag.textContent = `YOU LOSE 🥲`;
+      } else {
+        messageTag.textContent = `Please try again... 😭`;
+      }
     }
   }
 };
@@ -44,6 +50,7 @@ const reset = () => {
   scoreTag.textContent = String(defaultScore);
   hiddenTag.textContent = defaultHidden;
   hiddenTag.value = Math.floor(Math.random() * 19 + 1);
+  score = defaultScore;
 };
 
 function playAgain() {
