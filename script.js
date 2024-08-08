@@ -16,7 +16,7 @@ const defaultMessage = `Start guessing...`;
 const defaultHidden = `?`;
 const defaultNumber = ``;
 const defaultColor = `#222`;
-let score = defaultScore; //Set score ngoài global để sau nếu có cần sử dụng bên trong code, chứ không nên dựa vào DOM để get ra
+let score = defaultScore;
 
 const checkNumber = () => {
   const number = Number(guessTag.value);
