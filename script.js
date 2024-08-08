@@ -53,7 +53,7 @@ const reset = () => {
   hiddenTag.textContent = defaultHidden;
   hiddenTag.value = Math.floor(Math.random() * 19 + 1);
   body.style.backgroundColor = defaultColor;
-  score = Number(messageTag.value);
+  score = Number(messageTag.textContent);
 };
 
 function playAgain() {
