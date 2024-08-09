@@ -11,28 +11,36 @@ const guessTag = $('.guess');
 const checkButton = $('.check');
 const body = $('body');
 
-const defaultScore = 20;
+const maxScore = 20;
+const maxNumber = 20; //Set giá trị cuối cho khoảng
+const minNumber = 1; //Set giá trị đầu cho khoảng, thay vì hardcode
 const defaultMessage = `Start guessing...`;
 const defaultHidden = `?`;
 const defaultNumber = ``;
-const defaultColor = `#222`;
-let score = defaultScore;
+const winnerColor = `#60b347`;
+const winnerHiddenTagWidth = `30rem`;
+let randomNumber = generateRandomNumber();
+let score = maxScore;
 
+function generateRandomNumber() {
+  return Math.floor(Math.random() * 19 + 1);
+}
 const checkNumber = () => {
   const number = Number(guessTag.value);
-  const secretNumber = Number(hiddenTag.value);
+  const secretNumber = randomNumber;
   const highscore = Number(highscoreTag.textContent);
 
   if (number < 1 || number > 20)
     messageTag.textContent = `Wrong number, fill again`;
   else {
     if (number === secretNumber) {
-      messageTag.textContent = `🎉🎉 Correct!!!`;
+      messageTag.textContent = `🎉🎉 Correct Number. You're so amazing 😎`;
       hiddenTag.textContent = String(secretNumber);
       if (score > highscore) {
         highscoreTag.textContent = String(score);
       }
-      body.style.backgroundColor = 'green';
+      body.style.backgroundColor = winnerColor;
+      hiddenTag.style.width = winnerHiddenTagWidth;
     } else {
       if (score !== 0) {
         if (number > secretNumber) messageTag.textContent = `Too high...👆`;
@@ -49,11 +57,12 @@ const checkNumber = () => {
 const reset = () => {
   guessTag.value = defaultNumber;
   messageTag.textContent = defaultMessage;
-  scoreTag.textContent = String(defaultScore);
+  scoreTag.textContent = String(maxScore);
   hiddenTag.textContent = defaultHidden;
-  hiddenTag.value = Math.floor(Math.random() * 19 + 1);
-  body.style.backgroundColor = defaultColor;
-  score = Number(messageTag.textContent);
+  randomNumber = generateRandomNumber();
+  score = Number(scoreTag.textContent);
+  body.style.removeProperty(`background-color`); //css property được đặt trong chuỗi thì format như bth : background-color
+  hiddenTag.style.removeProperty(`width`);
 };
 
 function playAgain() {
