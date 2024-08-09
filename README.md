@@ -1,0 +1,3 @@
+Just a simple game project with power of Javascript <3 
+Please try it if you have interested with this...
+I'm just a beginner, so if you find out my mistake on it, please you can handle it or contact with me.
