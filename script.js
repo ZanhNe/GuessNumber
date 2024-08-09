@@ -1,7 +1,8 @@
 'use strict';
+//Define custom syntax
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-
+//Get ra các element từ DOM để sau sử dụng, thay vì mỗi chỗ phải gọi lại document...
 const scoreTag = $('.score');
 const highscoreTag = $('.highscore');
 const messageTag = $('.message');
@@ -11,9 +12,10 @@ const guessTag = $('.guess');
 const checkButton = $('.check');
 const body = $('body');
 
-const maxScore = 20;
+//Set attribute để tái sử dụng
 const maxNumber = 20; //Set giá trị cuối cho khoảng
 const minNumber = 1; //Set giá trị đầu cho khoảng, thay vì hardcode
+const maxScore = maxNumber;
 const defaultMessage = `Start guessing...`;
 const defaultHidden = `?`;
 const defaultNumber = ``;
@@ -21,34 +23,36 @@ const winnerColor = `#60b347`;
 const winnerHiddenTagWidth = `30rem`;
 let randomNumber = generateRandomNumber();
 let score = maxScore;
+let highscore = 0;
 
+//define ra function trong quá trình build logic (tái sử dụng, tránh lặp code)
 function generateRandomNumber() {
   return Math.floor(Math.random() * 19 + 1);
 }
+
 const checkNumber = () => {
   const number = Number(guessTag.value);
-  const secretNumber = randomNumber;
-  const highscore = Number(highscoreTag.textContent);
 
-  if (number < 1 || number > 20)
-    messageTag.textContent = `Wrong number, fill again`;
+  if (number < minNumber || number > maxNumber)
+    messageTag.textContent = `Wrong number, try again 😒`;
   else {
-    if (number === secretNumber) {
+    if (number === randomNumber) {
       messageTag.textContent = `🎉🎉 Correct Number. You're so amazing 😎`;
-      hiddenTag.textContent = String(secretNumber);
+      hiddenTag.textContent = String(randomNumber);
       if (score > highscore) {
-        highscoreTag.textContent = String(score);
+        highscore = score;
+        highscoreTag.textContent = String(highscore);
       }
       body.style.backgroundColor = winnerColor;
       hiddenTag.style.width = winnerHiddenTagWidth;
     } else {
       if (score !== 0) {
-        if (number > secretNumber) messageTag.textContent = `Too high...👆`;
+        if (number > randomNumber) messageTag.textContent = `Too high...👆`;
         else messageTag.textContent = `Too low...👇`;
         scoreTag.textContent = String(--score);
-        if (score === 0) messageTag.textContent = `YOU LOSE 🥲`;
+        if (score === 0) messageTag.textContent = `YOU LOOSE 🥲`;
       } else {
-        messageTag.textContent = `Please try again... 😭`;
+        messageTag.textContent = `Please play again... 😭`;
       }
     }
   }
